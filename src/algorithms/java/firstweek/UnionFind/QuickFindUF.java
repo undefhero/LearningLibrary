@@ -1,5 +1,3 @@
-package java.firstweek.unionfind;
-
 import java.util.Arrays;
 import java.util.stream.IntStream;
 

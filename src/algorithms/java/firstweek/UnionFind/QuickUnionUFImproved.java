@@ -1,11 +1,15 @@
+package java.firstweek.UnionFind;
+
 import java.util.stream.IntStream;
 
-public class QuickUnionUF {
+public class QuickUnionUFImproved {
 
     int[] id;
+    int[] sz;
 
-    QuickUnionUF(int N) {
+    QuickUnionUFImproved(int N) {
         id = IntStream.range(0, N - 1).toArray();
+        sz = new int[N];
     }
 
     private int root(int i) {
@@ -16,11 +20,20 @@ public class QuickUnionUF {
         return i;
     }
 
+    // id smaller tree to id of larger
     public void union(int p, int q) {
         int i = root(p);
         int j = root(q);
 
-        this.id[i] = j;
+        if (i == j) return;
+
+        if (sz[i] < sz[j]) {
+            this.id[i] = j;
+            sz[j] += sz[i];
+        } else {
+            this.id[j] = i;
+            sz[i] += sz[j];
+        }
     }
 
     public boolean connected(int p, int q) {
