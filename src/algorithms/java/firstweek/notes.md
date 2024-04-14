@@ -20,3 +20,22 @@ There are a similar appproaches but in case of `Quick find` data stored in linea
 * Weighted quick-union
 
 Note: When the size of one tree is bigger or equal than size of another tree, it means the size of tree can doubles at most Log(n) times.
+
+## Assignment results
+
+```
+Compilation:  PASSED
+API:          PASSED
+
+SpotBugs:     PASSED
+PMD:          PASSED
+Checkstyle:   PASSED
+
+Correctness:  27/38 tests passed
+Memory:       8/8 tests passed
+Timing:       20/20 tests passed
+
+Aggregate score: 82.63%
+```
+
+[Full summary](./assignment-summary.md)
