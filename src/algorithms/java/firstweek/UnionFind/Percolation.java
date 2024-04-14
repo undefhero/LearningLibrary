@@ -1,13 +1,12 @@
-import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    WeightedQuickUnionUF union;
-    int[] sites;
-    int sideSize;
-    int virtualSiteA;
-    int virtualSiteB;
+    private WeightedQuickUnionUF union;
+    private boolean[][] grid;
+    private int sideSize;
+    private int virtualSiteA;
+    private int virtualSiteB;
+    private int openSites;
 
     // creates n-by-n grid, with all sites initially blocked
     public Percolation(int n) {
@@ -15,93 +14,91 @@ public class Percolation {
 
         int virtualSites = 2;
         sideSize = n;
-        sites = new int[n * n];
-        virtualSiteA = n * n;
+        grid = new boolean[n][n];
+        virtualSiteA = 0;
         virtualSiteB = n * n + 1;
 
         union = new WeightedQuickUnionUF(n * n + virtualSites);
 
         // connect with virtualSites
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             union.union(virtualSiteA, i);
             union.union(virtualSiteB, n * (n - 1) + i);
-            sites[i] = 1;
-            sites[n * (n - 1) + i] = 1;
         }
     }
 
     // opens the site (row, col) if it is not open already
     public void open(int row, int col) {
-        if (!isOpen(row, col)) {
-            int element = unionIndex(row, col);
-            int aboveElement = element - sideSize;
-            int belowElement = element + sideSize;
-            int leftElement = element - 1;
-            int rightElement = element + 1;
+        if (isOpen(row, col)) return;
 
-            boolean aboveElementNegative = aboveElement < 0;
-            boolean belowElementOutOfRange = belowElement > sideSize * sideSize - 1;
-            boolean leftStayed = leftElement > 0  && (leftElement % sideSize != leftElement);
-            boolean rightStayed = (rightElement < sideSize * sideSize - 1) && rightElement % sideSize != 1;
+        int element = unionIndex(row, col);
+        int aboveElement = element - sideSize;
+        int belowElement = element + sideSize;
+        int leftElement = element - 1;
+        int rightElement = element + 1;
 
-            if (aboveElementNegative) {
-                unionIfOpen(element, virtualSiteA);
-            } else {
-                unionIfOpen(element, aboveElement);
-            }
+        boolean leftStayed = leftElement % sideSize != 0;
+        boolean rightStayed = rightElement % sideSize != 1;
 
-            if (belowElementOutOfRange) {
-                unionIfOpen(element, virtualSiteB);
-            } else {
-                unionIfOpen(element, belowElement);
-            }
+        unionIfOpen(element, aboveElement);
+        unionIfOpen(element, belowElement);
 
-            if (leftStayed) {
-                unionIfOpen(element, leftElement);
-            }
-
-            if (rightStayed) {
-                unionIfOpen(element, rightElement);
-            }
-
-            sites[element] = 1;
+        if (leftStayed) {
+            unionIfOpen(element, leftElement);
         }
+
+        if (rightStayed) {
+            unionIfOpen(element, rightElement);
+        }
+
+        openSites++;
+        grid[row - 1][col - 1] = true;
+    }
+
+    private int unionIndex(int row, int col) {
+        return col + (sideSize * (row - 1));
     }
 
     private void unionIfOpen(int element, int target) {
-        if (sites[target] == 1) {
+        if (target <= 0 || target > sideSize * sideSize) return;
+
+        if (isOpen(target)) {
             union.union(element, target);
         }
     }
 
     // is the site (row, col) open?
+    private boolean isOpen(int element) {
+        int col = element % sideSize;
+        int row = element / sideSize + 1;
+
+        if (col == 0) {
+            row = element / sideSize;
+            col = sideSize;
+        }
+
+        return grid[row - 1][col - 1];
+    }
+
     public boolean isOpen(int row, int col) {
         if (row <= 0 || col <= 0 || row > sideSize || col > sideSize) {
             throw new IllegalArgumentException("Out of range!");
         }
-        int i = unionIndex(row, col);
-        return sites[i] == 1;
+
+        return grid[row - 1][col - 1];
     }
 
     // is the site (row, col) full?
     public boolean isFull(int row, int col) {
-        return !isOpen(row, col);
-    }
+        if (!isOpen(row, col)) return false;
+        int element = unionIndex(row, col);
 
-    private int unionIndex(int row, int col) {
-        return (row - 1) * sideSize + col - 1;
+        return union.find(virtualSiteA) == union.find(element);
     }
 
     // returns the number of open sites
     public int numberOfOpenSites() {
-        int number = 0;
-        for (int s : sites) {
-            if (s == 1) {
-                number++;
-            }
-        }
-
-        return number;
+        return openSites;
     }
 
     // does the system percolate?
@@ -112,11 +109,13 @@ public class Percolation {
 
     public static void main(String[] args) {
         Percolation test = new Percolation(5);
-
+//        System.out.println(0 % 5);
         test.open(2, 1);
-        test.open(3, 1);
-        test.open(3, 2);
-        test.open(4, 2);
+        test.open(1, 5);
+        test.open(2, 5);
+        test.open(3, 5);
+        test.open(4, 5);
+        test.open(5, 5);
         System.out.println("persolates? " + test.percolates());
     }
 }
