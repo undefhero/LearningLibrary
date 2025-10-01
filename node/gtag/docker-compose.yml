@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  service1:
+    image: service
+    build: ./service
+    environment:
+      - ENV=prod
