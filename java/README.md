@@ -1,17 +1,42 @@
-# base
+# Base
 implements vs extends?
+range
+streams
+some hotkeys
+protected | public etc
+
+Core library:
+* File Read\write; parse CSV into objects
+* Networking, httpclient
+* pseudorandom generation
+* logging
+
+Debugging
+
+## Java Type System
 
 
-# algorithms
+# data structures
+* arrays
+* linked lists
+* stacks
+* queues 
+* trees
+* graphs
+* hash tables
+
+
+# Algorithms
+## Sorting & Searching
+## Recursion
+## Graphs
+## Greedy
 
 
 # space/time complexity
 
 
-# data structures
-
-
-# Patterns
+# OOP Patterns
 
 
 # concurrency

@@ -9,11 +9,5 @@ public class MyThread extends Thread {
 
     public void run() {
         System.out.println("Thread is running on " + this.count);
-
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 }
