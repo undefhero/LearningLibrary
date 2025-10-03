@@ -1,4 +1,7 @@
 # Base
+JVM:
+Java source (.java) -javac-> Bytecode (.class) -JVM classloader-> Execution (interpretation +  "just-in-time"=JIT compilation)
+
 implements vs extends?
 range
 streams
@@ -14,6 +17,7 @@ Core library:
 Debugging
 
 ## Java Type System
+* Interfaces
 
 
 # data structures
@@ -27,16 +31,19 @@ Debugging
 
 
 # Algorithms
-## Sorting & Searching
-## Recursion
-## Graphs
-## Greedy
+* Sorting & Searching
+* Recursion
+* Graphs
+* Greedy
 
 
 # space/time complexity
 
 
 # OOP Patterns
+* Singleton
+* Factory
+* Builder
 
 
 # concurrency
