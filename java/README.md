@@ -3,10 +3,11 @@ JVM:
 Java source (.java) -javac-> Bytecode (.class) -JVM classloader-> Execution (interpretation +  "just-in-time"=JIT compilation)
 
 implements vs extends?
-range
+range | loops
 streams
 some hotkeys
 protected | public etc
+int vs Integer
 
 Core library:
 * File Read\write; parse CSV into objects
@@ -28,6 +29,11 @@ Debugging
 * trees
 * graphs
 * hash tables
+
+* Array
+* ArrayList
+* LinkedList
+* 
 
 
 # Algorithms
@@ -57,6 +63,8 @@ Objects are visible by default. Because of muttability and object visibility (he
 * Monitors?
 
 ## exceptions
+
+## Logging
 
 
 ## memory management
