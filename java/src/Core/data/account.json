@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "address": "0x001",
+    "deposit": "100",
+    "currency": "USD"
+  },
+  {
+    "id": "2",
+    "address": "0x002",
+    "deposit": "50",
+    "currency": "USD"
+  }
+]
