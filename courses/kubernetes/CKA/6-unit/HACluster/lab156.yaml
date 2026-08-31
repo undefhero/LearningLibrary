@@ -1,0 +1,59 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-ingress
+  namespace: restricted
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: access
+        - podSelector:
+            matchLabels:
+              access: "true"
+  egress:
+    - to:
+      ports:
+        - protocol: TCP
+          port: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab156web
+  namespace: restricted
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lab156web
+  template:
+    metadata:
+      labels:
+        app: lab156web
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab156access
+  namespace: access
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lab156access
+  template:
+    metadata:
+      labels:
+        app: lab156access
+        access: "true"
+    spec:
+      containers:
+        - image: nginx
+          name: nginx

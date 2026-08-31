@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: lab155deploy
+  name: lab155deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lab155deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: lab155deploy
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+status: {}

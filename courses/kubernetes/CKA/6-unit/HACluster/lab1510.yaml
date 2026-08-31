@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: lab1510access
+  namespace: access
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: role1510
+  namespace: access
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - create
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - daemonsets
+      - statefulsets
+    verbs:
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: role1510-binding
+  namespace: access
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: role1510
+subjects:
+  - kind: ServiceAccount
+    name: lab1510access
+    namespace: access
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: lab1510pod
+  name: lab1510pod
+  namespace: access
+spec:
+  containers:
+    - command:
+        - sleep
+        - infinity
+      image: busybox
+      name: lab1510pod
+      resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+  serviceAccountName: lab1510access
+status: {}

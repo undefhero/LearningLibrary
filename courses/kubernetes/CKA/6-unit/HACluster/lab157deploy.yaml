@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: lab157deploy
+  name: lab157deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lab157deploy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: lab157deploy
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+          resources:
+            requests:
+              memory: 32Mi
+status: {}

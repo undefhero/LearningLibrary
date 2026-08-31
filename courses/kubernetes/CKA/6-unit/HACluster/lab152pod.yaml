@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: lab152pod
+  name: lab152pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lab152pod
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: lab152pod
+    spec:
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - image: nginx
+          name: nginx
+          resources: {}
+        - image: redis
+          name: redis
+          resources: {}
+status: {}

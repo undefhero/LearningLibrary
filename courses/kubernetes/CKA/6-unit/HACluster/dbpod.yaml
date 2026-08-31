@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dbpod
+spec:
+  nodeSelector:
+    type: db
+  tolerations:
+    - key: "type"
+      operator: "Equal"
+      value: "db"
+      effect: "NoSchedule"
+  containers:
+    - name: dbpod
+      image: nginx
