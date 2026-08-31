@@ -1,0 +1,16 @@
+[
+  {
+    "label": "Go: Test all",
+    "command": "go",
+    "args": ["test", "./..."],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "save": "all",
+  },
+  {
+    "label": "Go: Test current package",
+    "command": "go",
+    "args": ["test", "-v", "."],
+    "cwd": "$ZED_DIRNAME",
+    "save": "all",
+  },
+]

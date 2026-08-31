@@ -1,0 +1,10 @@
+[
+  {
+    "label": "Debug current Go exercise",
+    "adapter": "Delve",
+    "request": "launch",
+    "mode": "debug",
+    "program": "$ZED_FILE",
+    "cwd": "$ZED_DIRNAME"
+  }
+]
